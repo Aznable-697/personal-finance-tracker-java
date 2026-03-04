@@ -92,3 +92,6 @@ DatabaseConnection.java
 ## Author
 
 Matt W.
+
+---
+<img width="522" height="639" alt="Personal-finance-tracker-java-CLI" src="https://github.com/user-attachments/assets/783d590d-f8aa-4b81-b931-1e6920191bb4" />
