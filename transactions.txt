@@ -1,0 +1,3 @@
+Balance: $350.0
+Income: $500.0
+Expense: $-150.0
