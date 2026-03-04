@@ -12,3 +12,6 @@ Thumbs.db
 
 # Compiled Java
 *.class
+
+# Application configuration
+config.properties

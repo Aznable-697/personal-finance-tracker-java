@@ -4,6 +4,8 @@
  */
 package com.mattw.finance.db;
 
+import com.mattw.finance.config.ConfigLoader;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,13 +23,11 @@ import java.sql.SQLException;
  * - Shows separation of concerns and basic layering
  */
 public class DatabaseConnection {
-    // NOTE: This URL matches your database name: finance_tracker
-    private static final String URL = "jdbc:mysql://localhost:3306/finance_tracker";
     
-     // TODO (Resume Upgrade Later): Move credentials to an environment variable
-     // or config file that is NOT committed to GitHub.
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
+      // Load values from config.properties
+    private static final String URL = ConfigLoader.get("db.url");
+    private static final String USER = ConfigLoader.get("db.user");
+    private static final String PASSWORD = ConfigLoader.get("db.password");
     
     /**
      * Opens and returns a Connection to the database.
