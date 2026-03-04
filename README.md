@@ -56,7 +56,9 @@ CREATE TABLE bills (
     due_date VARCHAR(20)
 );
 ```
-
+## Datebase Setup notes
+ - Copy config.example.properties and rename it to config.properties
+ - Update it with your database credentials.
 ---
 
 ## How to Run
