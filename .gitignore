@@ -2,6 +2,7 @@
 build/
 dist/
 nbproject/private/
+nbproject/
 
 # OS
 .DS_Store

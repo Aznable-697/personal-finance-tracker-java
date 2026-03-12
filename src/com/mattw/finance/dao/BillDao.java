@@ -28,6 +28,7 @@ import java.util.List;
  *
  * Note:
  * - This is a common professional pattern.
+ * - Handles all bill-related database operations.
  * @author Matt W.
  */
 public class BillDao {
@@ -39,6 +40,10 @@ public class BillDao {
     private static final String SELECT_ALL_BILLS_SQL =
             "SELECT id, name, amount_due, due_date FROM bills ORDER BY due_date ASC";
 
+    // NEW: SQL statement to delete a bill by its database ID
+    private static final String DELETE_BILL_BY_ID_SQL =
+            "DELETE FROM bills WHERE id = ?";
+    
     /**
      * Inserts a new Bill into the database.
      *
@@ -108,5 +113,30 @@ public class BillDao {
         }
 
         return bills;
+    }
+    /**
+     * Deletes a bill using its ID.
+     *
+     * @param billId the database ID of the bill
+     * @return true if a row was deleted, false if no matching bill was found
+     */
+    public boolean deleteBillById(int billId) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(DELETE_BILL_BY_ID_SQL)) {
+
+            // Set the ? in "WHERE id = ?"
+            stmt.setInt(1, billId);
+
+            // executeUpdate returns number of affected rows
+            int rowsDeleted = stmt.executeUpdate();
+
+            // If rowsDeleted > 0, the delete worked
+            return rowsDeleted > 0;
+
+        } catch (SQLException e) {
+            System.out.println("DAO Error: Could not delete bill.");
+            e.printStackTrace();
+            return false;
+        }
     }
 }

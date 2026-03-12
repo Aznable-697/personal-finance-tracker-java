@@ -44,7 +44,8 @@ public class FinanceTrackerApplication {
             System.out.println("\nPersonal Finance Tracker");
             System.out.println("1. Add Bill");
             System.out.println("2. View Bills");
-            System.out.println("3. Exit");
+            System.out.println("3. Delete Bill");
+            System.out.println("4. Exit");
             System.out.print("Please ENTER your Choice: ");
 
             // Read input safely as string first (prevents Scanner weirdness)
@@ -60,6 +61,9 @@ public class FinanceTrackerApplication {
                     break;
 
                 case "3":
+                    deleteBillFlow(scanner);
+                    break;
+                 case "4":
                     System.out.println("Goodbye!");
                     return;
 
@@ -116,6 +120,26 @@ public class FinanceTrackerApplication {
                             + ", Amount Due: $" + bill.getAmountDue()
                             + ", Due Date: " + bill.getDueDate()
             );
+        }
+    }
+    
+    /**
+     * Handles deleting a bill by its ID.
+     */
+    private static void deleteBillFlow(Scanner scanner) {
+
+        // Helpful UX: show bills before asking for the ID
+        viewBillsFlow();
+
+        System.out.print("\nEnter the Bill ID to delete: ");
+        String billIdRaw = scanner.nextLine();
+
+        boolean success = billService.deleteBillById(billIdRaw);
+
+        if (success) {
+            System.out.println("Bill deleted successfully!");
+        } else {
+            System.out.println("No bill was deleted. Please verify the ID and try again.");
         }
     }
 }

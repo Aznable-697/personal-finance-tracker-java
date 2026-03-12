@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * BillService (Business Logic)
  * ----------------------------
- * Handles validation and "business rules".
+ * Handles validation and business logic.
  *
  * The CLI should:
  * - collect input
@@ -95,5 +95,34 @@ public class BillService {
      */
     public List<Bill> getAllBills() {
         return billDao.getAllBills();
+    }
+    
+      /**
+     * Validates the bill ID from the CLI, then calls the DAO delete method.
+     *
+     * @param billIdRaw raw user input from the console
+     * @return true if deleted successfully, false otherwise
+     */
+    public boolean deleteBillById(String billIdRaw) {
+
+        int billId;
+
+        try {
+            // Convert the user's typed input into an integer
+            billId = Integer.parseInt(billIdRaw.trim());
+
+            // Simple validation rule: IDs must be positive
+            if (billId <= 0) {
+                System.out.println("Validation Error: Bill ID must be greater than 0.");
+                return false;
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Validation Error: Bill ID must be a whole number.");
+            return false;
+        }
+
+        // Ask the DAO to delete the bill with this ID
+        return billDao.deleteBillById(billId);
     }
 }
